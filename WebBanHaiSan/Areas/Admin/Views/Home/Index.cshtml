@@ -1,0 +1,137 @@
+﻿@model WebBanHaiSan.Areas.Admin.Models.HomeMV
+@{
+    ViewData["Title"] = "Admin Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Số Lượng Sản Phẩm</h5>
+                    <p class="card-text">@Model.TotalProducts</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Thu Nhập</h5>
+                    <p class="card-text">@Model.TotalRevenue.Value.ToString("#,##0") VNĐ</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Số Lượng Khách Hàng</h5>
+                    <p class="card-text">@Model.TotalCustomers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Số Lượng Đơn Hàng</h5>
+                    <p class="card-text">@Model.TotalOrders</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Thống Kê Doanh Thu Theo Ngày</h3>
+            <canvas id="dailyRevenueChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h3>Thống Kê Doanh Thu Theo Tháng</h3>
+            <canvas id="monthlyRevenueChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var dailyCtx = document.getElementById('dailyRevenueChart').getContext('2d');
+            var monthlyCtx = document.getElementById('monthlyRevenueChart').getContext('2d');
+            var dailyRevenueData = @Html.Raw(Json.Serialize(Model.DailyRevenue));
+
+            // Process daily revenue data for daily chart
+            var dailyLabels = dailyRevenueData.map(function (item) {
+                var date = new Date(item.date);
+                return date.toLocaleDateString();
+            });
+
+            var dailyData = dailyRevenueData.map(function (item) {
+                return item.total;
+            });
+
+            new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: dailyLabels,
+                    datasets: [{
+                        label: 'Doanh Số Theo Ngày',
+                        data: dailyData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Aggregate daily data into monthly data
+            var monthlyRevenueData = {};
+            dailyRevenueData.forEach(function (item) {
+                var date = new Date(item.date);
+                var month = date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0');
+                if (!monthlyRevenueData[month]) {
+                    monthlyRevenueData[month] = 0;
+                }
+                monthlyRevenueData[month] += item.total;
+            });
+
+            var monthlyLabels = Object.keys(monthlyRevenueData);
+            var monthlyData = Object.values(monthlyRevenueData);
+
+            new Chart(monthlyCtx, {
+                type: 'bar',
+                data: {
+                    labels: monthlyLabels,
+                    datasets: [{
+                        label: 'Doanh Số Theo Tháng',
+                        data: monthlyData,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
+

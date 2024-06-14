@@ -1,0 +1,15 @@
+﻿@model IEnumerable<WebBanHaiSan.Models.Product>
+@{
+    ViewData["Title"] = "Search";
+    Layout = "_TemplateProduct";
+}
+@if(Model != null && Model.Count() > 0)
+{
+    <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+        @await Html.PartialAsync("ListProduct", Model)
+    </div>
+}
+else
+{
+    <p>Không có sản phẩm nào thỏa mãn</p>
+}

@@ -1,0 +1,50 @@
+﻿@model WebBanHaiSan.Models.Post
+
+<div class="modal fade" id="editModal-@Model.PostId" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-@Model.PostId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel-@Model.PostId">Sửa Bài Viết</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="@Model.PostId" />
+                    <input type="hidden" asp-for="PostId" value="@Model.PostId" />
+
+                    <div class="form-group">
+                        <label asp-for="Title">Tiêu Đề</label>
+                        <input type="text" class="form-control" asp-for="Title">
+                        <input type="hidden" asp-for="Title" value="@Model.Title" />
+                    </div>
+                    <div class="form-group">
+                        <label>Hình Ảnh</label>
+                        <input name="fthumb" type="file" asp-for="Image" class="form-control">
+                        <input type="hidden" asp-for="Image" value="@Model.Image" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Contents">Mở Đầu</label>
+                        <textarea class="form-control" asp-for="Contents" style="width: 100%;height: auto"></textarea>
+                        <input type="hidden" asp-for="Contents" value="@Model.Contents" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Decription">Nội Dung</label>
+                        <textarea class="form-control" asp-for="Decription" style="width: 100%;height:100%"></textarea>
+                        <input type="hidden" asp-for="Decription" value="@Model.Decription" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Creatdate">Ngày Tạo</label>
+                        <input type="date" class="form-control" asp-for="Creatdate" value="@Model.Creatdate?.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" asp-for="Creatdate" value="@Model.Creatdate" />
+                    </div>
+                    <!-- Add other fields as needed -->
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

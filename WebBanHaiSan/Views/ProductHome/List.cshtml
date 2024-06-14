@@ -1,0 +1,123 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<WebBanHaiSan.Models.Product>
+
+@{
+    Cart category = ViewBag.CurrentCat;
+    ViewData["Title"] = category.Title +" "+ ViewBag.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int pageCurrent = ViewBag.CurrentPage;
+
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div class="all-title-box" style=" background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>@category.CartName</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="ProductHome" asp-action="Index">Shop</a></li>
+                    <li class="breadcrumb-item active">@category.CartName</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop-box-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                <div class="right-product-box">
+                    <div class="product-item-filter row">
+                        <div class="col-12 col-sm-12 text-center text-sm-right">
+                            <ul class="nav nav-tabs ml-auto" style="float:left">
+                                <li>
+                                    <a class="nav-link active" href="#grid-view" data-toggle="tab">Danh sách sản phẩm <i class="fa fa-th"></i> </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-categorie-box">
+                        <div class="tab-content">
+                            <div class="row">
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        string url = $"";
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    @* <div class="type-lb">
+                                            <p class="sale">Sale</p>
+                                            </div>*@
+                                                    <a href="@url">
+                                                        <img src="~/images/products/@item.Thumb" class="img-fluid" alt="@item.Productname" style="height:200px; width:600px">
+                                                    </a>
+                                                </div>
+                                                <div class="why-text">
+                                                    <a class="centered" asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.ProductId">
+                                                        <h4>@item.Productname</h4>
+                                                    </a>
+                                                    <h3 class="centered" style="margin-bottom:10px">@item.Price VNĐ</h3>
+                                                    <p class="centered"><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn hvr-hover" style="color:white">Thêm Vào Giỏ Hàng</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div aria-label="Page navigation example" class="centered">
+                                <ul class="pagination">
+                                    <pager class="pager-container" options="@PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext" list="@Model" asp-controller="ProductHome" asp-route-CartID="@category.CartId" asp-action="List" />
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                <div class="product-categori">
+                    <div class="search-product">
+                        <form asp-action="Search" asp-controller="ProductHome">
+                            <input class="form-control" placeholder="Search here..." type="search" name="query">
+                            <button type="submit"> <i class="fa fa-search"></i> </button>
+                        </form>
+                    </div>
+                    <div class="filter-sidebar-left">
+                        <div class="title-left">
+                            <h3>
+                                <a asp-controller="ProductHome" asp-action="Index">Danh Mục</a>
+                            </h3>
+                        </div>
+                        <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                            <div class="list-group-collapse sub-men">
+                                <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">
+                                    Cá Và Hải Sản Đóng Gói <small class="text-muted"></small>
+                                </a>
+                                <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
+                                    <div class="list-group">
+                                        @await Component.InvokeAsync("MenuDanhMuc")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-collapse sub-men">
+                                <a class="list-group-item list-group-item-action">
+                                    Cửa Hàng
+                                </a>
+                                <div class="list-group">
+                                    @await Component.InvokeAsync("Store")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

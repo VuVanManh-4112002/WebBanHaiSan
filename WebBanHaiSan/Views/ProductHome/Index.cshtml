@@ -1,0 +1,9 @@
+﻿@model IEnumerable<WebBanHaiSan.Models.Product>
+
+@{
+    ViewData["Title"] = "Sản Phẩm";
+    Layout = "_TemplateProduct";
+}
+<div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+    @await Html.PartialAsync("ListProduct", Model)
+</div>

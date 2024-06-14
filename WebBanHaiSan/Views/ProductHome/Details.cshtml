@@ -1,0 +1,224 @@
+﻿@model WebBanHaiSan.Models.Product
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> LsProduct = ViewBag.SanPham;
+    string unit = (Model.SizeNavigation.Decription?.ToLower().Contains("/con") ?? false) ? "Con" : "Kg";
+}
+<style>
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: '>';
+    }
+
+    .single-product-details h4, .single-product-details p {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .single-product-details h4 {
+        font-weight: bold;
+    }
+
+    .product-images img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .featured-products-box .item {
+        margin: 0 10px;
+    }
+
+    .featured-products-box .products-single {
+        border: 1px solid #ddd;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .featured-products-box .box-img-hover img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .featured-products-box .why-text {
+        margin-top: 10px;
+    }
+
+    .price-box-bar {
+        margin-top: 20px;
+    }
+
+    .quantity-box {
+        width: 50%; /* Đặt chiều rộng khung nhập số lượng */
+    }
+
+    .cart-and-bay-btn {
+        display: flex;
+        justify-content: center; /* Căn giữa nội dung */
+    }
+
+    .quantity-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .quantity-container .unit {
+            font-weight: bold;
+            margin-left: 5px; /* Khoảng cách giữa input và đơn vị */
+        }
+</style>
+
+<div class="all-title-box" style=" background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>@Model.Productname</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">@Model.Cart.CartName</a></li>
+                    <li class="breadcrumb-item active">@Model.Productname</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop-detail-box-main my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-6">
+                <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
+                    <div class="carousel-inner product-images" role="listbox">
+                        <div class="carousel-item active">
+                            <a asp-controller="ProductHome" asp-action="Details">
+                                <img class="d-block w-100" src="~/images/products/@Model.Thumb" alt="@Model.Productname">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-6">
+                <div class="single-product-details">
+                    <h2>@Model.Productname</h2>
+                    <h4>Danh Mục: @Model.Cart.CartName</h4>
+                    @if (Model.Discount > 0)
+                    {
+                        <h5>Giá: <del>@Model.Price.Value.ToString("#,##0") VNĐ</del> @(@Model.Price - @Model.Price * (Model.Discount / 100)) VNĐ</h5>
+                    }
+                    else
+                    {
+                        <h5>Giá: @Model.Price.Value.ToString("#,##0") VNĐ</h5>
+                    }
+                    <div class="container">
+                        <h4>Xuất Xứ:</h4>
+                        <p>@Model.Origin</p>
+                    </div>
+                    <div class="container">
+                        <h4>Trạng Thái:</h4>
+                        <p>@Model.StatusPd</p>
+                    </div>
+                    <div class="container">
+                        <h4>Mô Tả:</h4>
+                        <p>@Model.Title</p>
+                    </div>
+                    <h4>Size: @Model.SizeNavigation.Decription</h4>
+                    <form asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.ProductId">
+                        <div class="form-group quantity-box">
+                            <label class="control-label">Số Lượng</label>
+                            <div class="quantity-container">
+                                <input class="form-control" value="1" min="1" max="@Model.Stock" type="number" name="quantity">
+                                <span class="unit">@unit</span>
+                            </div>
+                        </div>
+                        <div class="price-box-bar">
+                            <div class="cart-and-bay-btn">
+                                <button class="btn hvr-hover" data-fancybox-close="" style="color:white">Thêm Vào Giỏ Hàng</button>
+                                <input hidden asp-for="ProductId" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Có Thể Bạn Cũng Thích</h1>
+                    <p>Sản Phẩm Tương Tự</p>
+                </div>
+                <div class="featured-products-box owl-carousel owl-theme">
+                    @if (LsProduct != null)
+                    {
+                        foreach (var item in LsProduct)
+                        {
+                            string url = $"";
+                            <div class="item">
+                                <div class="products-single fix">
+                                    <div class="box-img-hover">
+                                        <a href="@url">
+                                            <img src="~/images/products/@item.Thumb" class="img-fluid" alt="@item.Productname">
+                                        </a>
+                                    </div>
+                                    <div class="why-text">
+                                        <a class="centered" asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.ProductId">
+                                            <h4>@item.Productname</h4>
+                                        </a>
+                                        <h3 class="centered" style="margin-bottom:10px">@item.Price.Value.ToString("#,##0") VNĐ</h3>
+                                        <p class="centered"><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn hvr-hover" style="color:white">Thêm Vào Giỏ Hàng</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(function (){
+                $(".cart-and-bay-btn").click(function () {
+                    var productid = $('#ProductId').val();
+                    var soluong = $('#quantity').val();
+                    $.ajax({
+                        url: "/api/cart/AddToCart",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            id: productid
+                            Quantity: soluong
+                        },
+                        success: function (response) {
+                            location.reload();
+                        },
+                        error: function(error){
+                            alert("Co loi server" + error.responseText);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 5
+                    }
+                }
+            });
+        });
+    </script>
+}

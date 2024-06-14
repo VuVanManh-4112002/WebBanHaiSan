@@ -1,0 +1,100 @@
+﻿@model List<Product>
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+    @if (Model != null && Model.Count() > 0)
+    {
+        @foreach (var item in Model)
+        {
+            string url = $"";
+            if (item.Discount > 0)
+            {
+                <div class="col-lg-3 col-md-6 special-grid top-featured">
+                    <div class="products-single fix">
+                        <div class="box-img-hover">
+                            <div class="type-lb">
+                                <p class="sale">- @item.Discount %</p>
+                            </div>
+                            <a href="@url">
+                                <img src="~/images/products/@item.Thumb" class="img-fluid" alt="@item.Productname" style="height:200px; width:600px">
+                            </a>
+                        </div>
+                        <div class="why-text">
+                            <a class="centered" asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.ProductId">
+                                <h4>@item.Productname</h4>
+                            </a>
+                            <h3 class="centered" style="margin-bottom:10px">@item.Price VNĐ</h3>
+                            <p class="centered"><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn hvr-hover" style="color:white">Thêm Vào Giỏ Hàng</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (item.Bestseller == true)
+            {
+                <div class="col-lg-3 col-md-6 special-grid best-seller">
+                    <div class="products-single fix">
+                        <div class="box-img-hover">
+                            <div class="type-lb">
+                                <p class="sale">Bán Chạy</p>
+                            </div>
+                            <a href="@url">
+                                <img src="~/images/products/@item.Thumb" class="img-fluid" alt="@item.Productname" style="height:200px; width:600px">
+                            </a>
+                        </div>
+                        <div class="why-text">
+                            <a class="centered" asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.ProductId">
+                                <h4>@item.Productname</h4>
+                            </a>
+                            <h3 class="centered" style="margin-bottom:10px">@item.Price VNĐ</h3>
+                            <p class="centered"><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn hvr-hover" style="color:white">Thêm Vào Giỏ Hàng</a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+                {
+                <div class="col-lg-3 col-md-6 special-grid">
+                    <div class="products-single fix">
+                        <div class="box-img-hover">
+                            <a href="@url">
+                                <img src="~/images/products/@item.Thumb" class="img-fluid" alt="@item.Productname" style="height:200px; width:600px">
+                            </a>
+                        </div>
+                        <div class="why-text">
+                            <a class="centered" asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.ProductId">
+                                <h4>@item.Productname</h4>
+                            </a>
+                            <h3 class="centered" style="margin-bottom:10px">@item.Price VNĐ</h3>
+                            <p class="centered"><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn hvr-hover" style="color:white">Thêm Vào Giỏ Hàng</a></p>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+        }
+    }
+@*<div class="col-lg-3 col-md-6 special-grid best-seller">
+    <div class="products-single fix">
+        <div class="box-img-hover">
+            <div class="type-lb">
+                <p class="sale">Sale</p>
+            </div>
+            <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
+            <div class="mask-icon">
+                <ul>
+                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                </ul>
+                <a class="cart" href="#">Add to Cart</a>
+            </div>
+        </div>
+        <div class="why-text">
+            <h4>Lorem ipsum dolor sit amet</h4>
+            <h5> $7.79</h5>
+        </div>
+    </div>
+</div>*@

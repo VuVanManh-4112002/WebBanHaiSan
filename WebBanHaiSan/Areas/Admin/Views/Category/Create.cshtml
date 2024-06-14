@@ -1,0 +1,32 @@
+﻿@model WebBanHaiSan.Models.Cart
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Thêm Danh Mục Mới</h4>
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CartName">Tên Danh Mục</label>
+                    <input type="text" class="form-control" asp-for="CartName">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title">Mô Tả:</label>
+                    <input type="text" class="form-control" asp-for="Title">
+                </div>
+                <div class="form-group">
+                    <label for="fthumb">Hình Ảnh</label>
+                    <input name="fthumb" type="file" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Thêm Mới</button>
+                <a asp-action="Index" class="btn btn-light">Hủy</a>
+            </form>
+        </div>
+    </div>
+</div>
+

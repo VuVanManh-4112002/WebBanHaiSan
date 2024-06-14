@@ -1,0 +1,86 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<WebBanHaiSan.Models.Post>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Danh Sách Tin Tức" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div>
+    <a class="btn btn-primary btn-icon-text" asp-controller="Post" asp-action="Create"><i class="ti-upload btn-icon-prepend"></i> Thêm Tin Tức</a>
+</div>
+<div class="card-body">
+    <h4 class="card-title text-center">Danh Sách Tin Tức</h4>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tiêu Đề</th>
+                    <th>Ngày Đăng</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.PostId</td>
+                            <td>@item.Title</td>
+                            <td>@item.Creatdate</td>
+                            <td>
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-inverse-warning btn-fw" data-toggle="modal" data-target="#editModal-@item.PostId">Sửa</button>
+
+                                <!-- Delete Button -->
+                                <button type="button" class="btn btn-inverse-info btn-fw" data-toggle="modal" data-target="#deleteModal-@item.PostId">Xóa</button>
+                            </td>
+                        </tr>
+
+                        <!-- Edit Modal -->
+                        @Html.Partial("_EditPostModal", item)
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal-@item.PostId" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel-@item.PostId" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel-@item.PostId">Xóa Tin Tức</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Bạn có chắc chắn muốn xóa tin tức này không?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form asp-area="Admin" asp-controller="Post" asp-action="Delete" method="post">
+                                            <input type="hidden" name="id" value="@item.PostId" />
+                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </tbody>
+        </table>
+        <div aria-label="Page navigation example" class="centered">
+            <ul class="pagination">
+                <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="Post" asp-action="Index" />
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

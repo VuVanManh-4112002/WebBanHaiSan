@@ -1,0 +1,39 @@
+﻿@model WebBanHaiSan.Models.Cart
+
+<div class="modal fade" id="editModal-@Model.CartId" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-@Model.CartId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel-@Model.CartId">Sửa Danh Mục</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="@Model.CartId" />
+                    <input type="hidden" asp-for="CartId" value="@Model.CartId" />
+
+                    <div class="form-group">
+                        <label asp-for="CartName">Tên Danh Mục</label>
+                        <input type="text" class="form-control" asp-for="CartName">
+                        <input type="hidden" asp-for="CartName" value="@Model.CartName" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Title">Mô Tả:</label>
+                        <input type="text" class="form-control" asp-for="Title">
+                        <input type="hidden" asp-for="Title" value="@Model.Title" />
+                    </div>
+                    <div class="form-group">
+                        <label for="fthumb">Hình Ảnh</label>
+                        <input name="fthumb" type="file" class="form-control">
+                        <input type="hidden" asp-for="Cover" value="@Model.Cover" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

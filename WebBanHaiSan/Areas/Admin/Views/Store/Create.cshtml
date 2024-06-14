@@ -1,0 +1,39 @@
+﻿@model WebBanHaiSan.Models.Store
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Thêm Cửa Hàng Mới</h4>
+            <form class="forms-sample" asp-controller="Store" asp-action="Create" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="StoreName">Tên Sản Phẩm</label>
+                    <input type="text" class="form-control" asp-for="StoreName" placeholder="Tên Cửa Hàng">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email:</label>
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Địa chỉ Email">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone">Điện Thoại</label>
+                    <input type="text" class="form-control" asp-for="Phone" placeholder="Số Điện Thoại">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Adress">Địa Chỉ</label>
+                    <input type="text" class="form-control" asp-for="Adress" placeholder="Địa Chỉ:">
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" asp-for="Active" /> Active<i class="input-helper"></i>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Thêm Mới</button>
+                <a asp-action="Index" class="btn btn-light">Hủy</a>
+            </form>
+        </div>
+    </div>
+</div>

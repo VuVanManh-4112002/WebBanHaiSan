@@ -1,0 +1,36 @@
+﻿@model WebBanHaiSan.Models.Post
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Thêm Tin Tức Mới</h4>
+            <form class="forms-sample" asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title">Tiêu Đề</label>
+                    <input type="text" class="form-control" asp-for="Title" placeholder="Mô Tả Tiêu Đề">
+                </div>
+                <div class="form-group">
+                    <label for="fthumb">Hình Ảnh</label>
+                    <input name="fthumb" type="file" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Contents">Mở Đầu</label>
+                    <textarea class="form-control" asp-for="Contents" style="width: 100%;height: auto"></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decription">Nội Dung</label>
+                    <textarea class="form-control" asp-for="Decription" style="width: 100%;height:100%"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Thêm Mới</button>
+                <a asp-action="Index" class="btn btn-light">Hủy</a>
+            </form>
+        </div>
+    </div>
+</div>
+

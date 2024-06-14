@@ -1,0 +1,5 @@
+﻿@model IEnumerable<WebBanHaiSan.ViewModels.DanhmucVM>
+@foreach (var item in Model)
+{
+    <a asp-controller="ProductHome" asp-action="List" asp-route-CatID="@item.CatID" class="list-group-item list-group-item-action active">@item.CatName <small class="text-muted">(@item.Soluong)</small></a>
+}

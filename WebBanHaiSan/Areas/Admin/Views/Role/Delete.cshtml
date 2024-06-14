@@ -1,0 +1,39 @@
+﻿@model WebBanHaiSan.Models.Role
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h3>Bạn Có Chắc Chắn Muốn Xóa?</h3>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin Quyền Truy Cập</h4>
+        <div class="table">
+            <table class="TTQQT">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td>@Model.RoleId</td>
+                    </tr>
+                    <tr>
+                        <td>Tên Quyền Truy Cập:</td>
+                        <td>@Model.Rolename</td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả:</td>
+                        <td>@Model.Decription</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <form asp-action="Delete" asp-route-id="@Model.RoleId">
+                <input type="hidden" asp-for="RoleId" />
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <a class="btn btn-light" asp-action="Index">Quay lại</a>
+            </form>
+        </div>
+    </div>
+</div>

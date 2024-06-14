@@ -1,0 +1,46 @@
+﻿@model WebBanHaiSan.Models.Account
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Thêm Tài Khoản Quản Trị Mới</h4>
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Fullname">Họ Tên</label>
+                    <input type="text" class="form-control" asp-for="Fullname">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Địa Chỉ Email:</label>
+                    <input type="email" class="form-control" asp-for="Email">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Mật Khẩu</label>
+                    <input type="password" class="form-control" asp-for="Password">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone">Điện Thoại:</label>
+                    <input type="tel" class="form-control" asp-for="Phone">
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select class="form-control" asp-for="RoleId" asp-items="ViewBag.Role">
+                        <option disabled selected>Chọn Role</option>
+                    </select>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" asp-for="Active"> Active<i class="input-helper"></i>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Thêm Tài Khoản</button>
+                <a asp-action="Index" class="btn btn-light">Hủy</a>
+            </form>
+        </div>
+    </div>
+</div>
+

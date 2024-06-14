@@ -1,0 +1,22 @@
+﻿@model WebBanHaiSan.ViewModels.AcountHomeVM
+
+@if (Model.Name != null)
+{
+    <li class="dropdown">
+        <a data-toggle="dropdown" href="#"><i class="fa fa-user s_color"></i>@Model.Name</a>
+        <ul class="dropdown-menu" style="background-color:lightgreen">
+            <li><a href="/TaiKhoanCuaToi.html">Tài Khoản Của Tôi</a></li>
+            <li><a href="/Logout.html">Đăng Xuất</a></li>
+        </ul>
+    </li>
+}
+else
+{
+    <li class="dropdown">
+        <a data-toggle="dropdown" href="#"><i class="fa fa-user s_color"></i>Đăng Nhập</a>
+        <ul class="dropdown-menu" style="background-color:lightgreen">
+            <li><a href="/Login.html">Đăng Nhập</a></li>
+            <li><a href="/Register.html">Đăng Ký</a></li>
+        </ul>
+    </li>
+}

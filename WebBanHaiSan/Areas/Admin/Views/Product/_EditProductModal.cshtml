@@ -1,0 +1,109 @@
+﻿@model WebBanHaiSan.Models.Product
+
+<div class="modal fade" id="editModal-@Model.ProductId" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-@Model.ProductId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel-@Model.ProductId">Sửa Sản Phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="@Model.ProductId" />
+                    <input type="hidden" asp-for="ProductId" value="@Model.ProductId" />
+
+                    <div class="form-group">
+                        <label asp-for="Productname">Tên Sản Phẩm</label>
+                        <input type="text" class="form-control" asp-for="Productname">
+                        <input type="hidden" asp-for="Productname" value="@Model.Productname" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Danh Mục</label>
+                        <select class="form-control" asp-for="CartId" asp-items="ViewBag.DanhMuc">
+                            <option disabled selected>Chọn Danh Mục</option>
+                        </select>
+                        <input type="hidden" asp-for="CartId" value="@Model.CartId" />
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Origin">Xuất Xứ</label>
+                            <input type="text" class="form-control" asp-for="Origin">
+                            <input type="hidden" asp-for="Origin" value="@Model.Origin" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="StatusPd">Trạng Thái</label>
+                            <input type="text" class="form-control" asp-for="StatusPd">
+                            <input type="hidden" asp-for="StatusPd" value="@Model.StatusPd" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Size</label>
+                        <select class="form-control" asp-for="Size" asp-items="ViewBag.Size">
+                            <option disabled selected>Chọn Size</option>
+                        </select>
+                        <input type="hidden" asp-for="Size" value="@Model.Size" />
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Stock">Số Lượng</label>
+                            <input type="text" class="form-control" asp-for="Stock">
+                            <input type="hidden" asp-for="Stock" value="@Model.Stock" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Discount">Giảm Giá</label>
+                            <input type="text" class="form-control" asp-for="Discount">
+                            <input type="hidden" asp-for="Discount" value="@Model.Discount" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Price">Giá Tiền</label>
+                        <input type="text" class="form-control" asp-for="Price">
+                        <input type="hidden" asp-for="Price" value="@Model.Price" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fthumb">Hình Ảnh</label>
+                        <input name="fthumb" type="file" class="form-control">
+                        <input type="hidden" asp-for="Thumb" value="@Model.Thumb"/>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" asp-for="Homeflag" /> HomeFlag<i class="input-helper"></i>
+                        </label>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" asp-for="Bestseller" /> BestSeller<i class="input-helper"></i>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cửa Hàng</label>
+                        <select class="form-control" asp-for="StoreId" asp-items="ViewBag.CuaHang">
+                            <option disabled selected>Chọn Cửa Hàng</option>
+                        </select>
+                        <input type="hidden" asp-for="StoreId" value="@Model.StoreId" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Title">Mô Tả</label>
+                        <textarea class="form-control" asp-for="Title" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

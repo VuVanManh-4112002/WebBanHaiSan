@@ -1,0 +1,104 @@
+﻿@model WebBanHaiSan.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center">Thêm Sản Phẩm Mới</h4>
+            <form class="forms-sample" asp-controller="Product" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Productname">Tên Sản Phẩm</label>
+                    <input type="text" class="form-control" asp-for="Productname" placeholder="Tên Sản Phẩm">
+                </div>
+                <div class="form-group">
+                    <label>Danh Mục</label>
+                    <select class="form-control" asp-for="CartId" asp-items="ViewBag.DanhMuc">
+                        <option disabled selected>Chọn Danh Mục</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Origin">Xuất Xứ</label>
+                        <input type="text" class="form-control" asp-for="Origin" placeholder="Xuất Xứ">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="StatusPd">Trạng Thái</label>
+                        <input type="text" class="form-control" asp-for="StatusPd" placeholder="Trạng Thái">
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="Size">Size</label>
+                    <input type="text" class="form-control" asp-for="Size" placeholder="Size">
+                </div>*@
+                <div class="form-group">
+                    <label>Size</label>
+                    <select class="form-control" asp-for="Size" asp-items="ViewBag.Size">
+                        <option disabled selected>Chọn Size</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Stock">Số Lượng</label>
+                        <input type="text" class="form-control" asp-for="Stock" placeholder="Số Lượng">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Discount">Giảm Giá</label>
+                        <input type="text" class="form-control" asp-for="Discount" placeholder="Giảm Giá">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price">Giá Tiền</label>
+                    <input type="text" class="form-control" asp-for="Price" placeholder="Giá Tiền">
+                </div>
+                <div class="form-group">
+                    <label for="fthumb">Hình Ảnh</label>
+                    <input name="fthumb" type="file" asp-for="Thumb" class="form-control">
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" asp-for="Homeflag">Homeflag<i class="input-helper"></i>
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" asp-for="Bestseller">Bestseller<i class="input-helper"></i>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Cửa Hàng</label>
+                    <select class="form-control" asp-for="StoreId" asp-items="ViewBag.CuaHang">
+                        <option disabled selected>Chọn Cửa Hàng</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title">Mô Tả</label>
+                    <textarea class="form-control" asp-for="Title" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary me-2">Thêm Sản Phẩm</button>
+                <a asp-action="Index" class="btn btn-light">Hủy</a>
+            </form>
+        </div>
+    </div>
+</div>
+@*@section Scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('Title');
+    </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Title'), {
+                autoParagraph: false
+            })
+            .then(editor => {
+                console.log(Title);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}*@

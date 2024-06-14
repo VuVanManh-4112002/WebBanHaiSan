@@ -1,0 +1,31 @@
+﻿@model WebBanHaiSan.Models.Role
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<h3>Sửa Thông Tin Truy Cập</h3>
+<hr /><div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Thông Tin Quyền Truy Cập</h4>
+            <form asp-action="Edit" asp-route-id="@Model.RoleId" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="RoleId" />
+                <div class="form-group">
+                    <label>Tên Quyền Truy Cập:</label>
+                    <input type="text" class="form-control" asp-for="Rolename" placeholder="Rolename">
+                </div>
+                <div class="form-group">
+                    <label>Mô Tả:</label>
+                    <input type="text" class="form-control" asp-for="Decription" placeholder="Decription">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary me-2">Lưu</button>
+                    <a class="btn btn-light" asp-action="Index">Quay Lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

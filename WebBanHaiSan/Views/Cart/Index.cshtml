@@ -1,0 +1,154 @@
+﻿@model IEnumerable<WebBanHaiSan.ViewModels.CartItem>
+@{
+    ViewData["Title"] = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="all-title-box" style="background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Giỏ Hàng</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Shop</a></li>
+                    <li class="breadcrumb-item active">Giỏ Hàng</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Hình Ảnh</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Giá</th>
+                                <th>Số Lượng</th>
+                                <th>Tổng Tiền</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    string unit = (item.size?.ToLower().Contains("/con") ?? false) ? "Con" : "Kg";
+                                    <tr>
+                                        <td class="thumbnail-img">
+                                            <a href="#">
+                                                <img class="img-fluid" src="~/images/products/@item.Image" alt="@item.TenHh" />
+                                            </a>
+                                        </td>
+                                        <td class="name-pr">
+                                            <a asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.MaHh">
+                                                @item.TenHh
+                                            </a>
+                                        </td>
+                                        <td class="price-pr">
+                                            <p>@item.PricePd.ToString("#,##0") VNĐ</p>
+                                        </td>
+                                        <td class="quantity-box">
+                                            <div class="quantity">
+                                                <button type="button" class="btn btn-secondary decrement" data-mahh="@item.MaHh" data-max="@item.maxStock">-</button>
+                                                <input type="text" value="@item.Soluong" style="width:20%" readonly class="c-input-text qty text cartItem" data-mahh="@item.MaHh" data-max="@item.maxStock" />
+                                                <button type="button" class="btn btn-secondary increment" data-mahh="@item.MaHh" data-max="@item.maxStock">+</button>
+                                                <span class="unit">@unit</span>
+                                            </div>
+                                        </td>
+                                        <td class="total-pr">
+                                            <p>@item.Total.ToString("#,##0") VNĐ</p>
+                                        </td>
+                                        <td class="remove-pr">
+                                            <a asp-action="RemoveCart" asp-controller="Cart" asp-route-id="@item.MaHh">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <div class="col-lg-8 col-sm-12"></div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="order-box">
+                    <h3>Đặt Hàng</h3>
+                    <div class="d-flex">
+                        <h4>Thành Tiền</h4>
+                        <div class="ml-auto font-weight-bold">@Model.Sum(p => p.Total).ToString("#,##0") VNĐ</div>
+                    </div>
+                    <div class="d-flex">
+                        <h4>Giảm Giá</h4>
+                        <div class="ml-auto font-weight-bold"> @Model.Sum(p => p.TotalDiscount).ToString("#,##0") VNĐ </div>
+                    </div>
+                    <hr class="my-1">
+                    <div class="d-flex">
+                        <h4>Thành Tiền:</h4>
+                        <div class="ml-auto font-weight-bold"> @Model.Sum(p => p.TotalPD).ToString("#,##0") VNĐ</div>
+                    </div>
+                    <hr class="my-1">
+                </div>
+            </div>
+            <div class="col-12 d-flex shopping-box"><a href="/checkout.html" class="ml-auto btn hvr-hover">Thanh Toán</a> </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            function updateCart(mahh, quantity) {
+                $.ajax({
+                    url: "/api/cart/update",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        id: mahh,
+                        quantity: quantity
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            window.location = '/cart.html';
+                        }
+                    },
+                    error: function () {
+                        alert("Cập Nhật Cart Error!");
+                    }
+                });
+            }
+
+            $('.increment').click(function () {
+                var input = $(this).siblings('input');
+                var currentVal = parseInt(input.val());
+                var maxVal = parseInt(input.data('max'));
+                var mahh = input.data('mahh');
+                if (!isNaN(currentVal) && currentVal < maxVal) {
+                    input.val(currentVal + 1);
+                    updateCart(mahh, currentVal + 1);
+                }
+            });
+
+            $('.decrement').click(function () {
+                var input = $(this).siblings('input');
+                var currentVal = parseInt(input.val());
+                var mahh = input.data('mahh');
+                if (!isNaN(currentVal) && currentVal > 1) {
+                    input.val(currentVal - 1);
+                    updateCart(mahh, currentVal - 1);
+                }
+            });
+        });
+    </script>
+}

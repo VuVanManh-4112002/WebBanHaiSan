@@ -1,0 +1,50 @@
+﻿@model WebBanHaiSan.Models.Account
+
+<div class="modal fade" id="editModal-@Model.AccountId" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-@Model.AccountId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel-@Model.AccountId">Sửa Tài Khoản</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" name="id" value="@Model.AccountId" />
+                    <input type="hidden" asp-for="AccountId" value="@Model.AccountId" />
+
+                    <div class="form-group">
+                        <label asp-for="Fullname">Tên Cửa Hàng</label>
+                        <input type="text" class="form-control" asp-for="Fullname">
+                        <input type="hidden" asp-for="Fullname" value="@Model.Fullname" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email">Địa Chỉ Email:</label>
+                        <input type="text" class="form-control" asp-for="Email">
+                        <input type="hidden" asp-for="Email" value="@Model.Email" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone">Điện Thoại:</label>
+                        <input type="text" class="form-control" asp-for="Phone">
+                        <input type="hidden" asp-for="Phone" value="@Model.Phone" />
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select class="form-control" asp-for="RoleId" asp-items="ViewBag.Role">
+                            <option disabled selected>Chọn Role</option>
+                        </select>
+                        <input type="hidden" asp-for="RoleId" value="@Model.RoleId" />
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" asp-for="Active" /> Active<i class="input-helper"></i>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

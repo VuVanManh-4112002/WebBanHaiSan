@@ -1,0 +1,87 @@
+﻿@model WebBanHaiSan.Models.Post
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Post> BaiViet = ViewBag.BVLQ;
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div class="all-title-box" style=" background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Tin Tức</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Shop</a></li>
+                    <li class="breadcrumb-item active">Tin Tức</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="about-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="banner-frame">
+                    <img class="img-fluid" src="~/images/posts/@Model.Image" alt="" />
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="noo-sh-title-top">@Model.Title</span></h2>
+                <p>Ngày Tạo:@Model.Creatdate.Value.ToShortDateString()</p>
+                <h2>
+                    @Model.Contents
+                </h2>
+                <h2>
+                    @Model.Decription
+                </h2>
+            </div>
+        </div>
+    </div>
+    <p class="centered"><a asp-action="Index" asp-controller="Post" class="btn hvr-hover" style="color:white">Quay Lại</a></p>
+</div>
+<div class="latest-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Tin Tức Liên Quan</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (BaiViet != null && BaiViet.Count() > 0)
+            {
+                @foreach (var item in BaiViet)
+                {
+                    string url = $"/tintuc/{@item.PostId}.html";
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                        <div class="blog-box">
+                            <div class="blog-img" asp-action="Details" asp-controller="Post" asp-route-id="@item.PostId">
+                                <img class="img-fluid" src="~/images/posts/@item.Image" alt="" />
+                            </div>
+                            <h4><b>Ngày Tạo:@item.Creatdate.Value.ToShortDateString()</b></h4>
+                            <div class="blog-content">
+                                <div class="title-blog">
+                                    <h3>@item.Title</h3>
+                                    <p>@item.Contents</p>
+                                </div>
+                                <p class="centered"><a asp-action="Details" asp-controller="Post" asp-route-id="@item.PostId" class="btn hvr-hover" style="color:white"><i class="fas fa-eye"></i>Xem Thêm</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"]</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="~/adminlayout/vendors/feather/feather.css">
+    <link rel="stylesheet" href="~/adminlayout/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/adminlayout/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="~/adminlayout/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="~/adminlayout/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="~/adminlayout/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="~/adminlayout/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/adminlayout/js/select.dataTables.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/adminlayout/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="~/adminlayout/images/favicon.png" />
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                        <span class="icon-menu"></span>
+                    </button>
+                </div>
+                <div>
+                    <a class="navbar-brand brand-logo" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <img src="~/adminlayout/images/logo.svg" alt="logo" />
+                    </a>
+                    <a class="navbar-brand brand-logo-mini" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <img src="~/adminlayout/images/logo-mini.svg" alt="logo" />
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-top">
+                <ul class="navbar-nav ms-auto">
+                    @*<li class="nav-item dropdown">
+@*                        <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                            <i class="icon-mail icon-lg"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="icon-bell"></i>
+                            <span class="count"></span>
+                        </a>
+                    </li>*@
+                    <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+                        <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="img-xs rounded-circle" src="~/adminlayout/images/faces/face8.jpg" alt="Profile image">
+                        </a>
+                       
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <div class="theme-setting-wrapper">
+                <div id="settings-trigger"><i class="ti-settings"></i></div>
+                <div id="theme-settings" class="settings-panel">
+                    <i class="settings-close ti-close"></i>
+                    <p class="settings-heading">SIDEBAR SKINS</p>
+                    <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border me-3"></div>Light</div>
+                    <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border me-3"></div>Dark</div>
+                    <p class="settings-heading mt-2">HEADER SKINS</p>
+                    <div class="color-tiles mx-0 px-4">
+                        <div class="tiles success"></div>
+                        <div class="tiles warning"></div>
+                        <div class="tiles danger"></div>
+                        <div class="tiles info"></div>
+                        <div class="tiles dark"></div>
+                        <div class="tiles default"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            @await Html.PartialAsync("SidenavPartialview.cshtml")
+            <!-- partial Main -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html FOOTER-->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Người Quản Trị: Vũ Văn Mạnh</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Liên Hệ: Email: vanmanha5dqh@gmail.com</span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="~/adminlayout/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="~/adminlayout/vendors/chart.js/Chart.min.js"></script>
+    <script src="~/adminlayout/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/adminlayout/vendors/progressbar.js/progressbar.min.js"></script>
+
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="~/adminlayout/js/off-canvas.js"></script>
+    <script src="~/adminlayout/js/hoverable-collapse.js"></script>
+    <script src="~/adminlayout/js/template.js"></script>
+    <script src="~/adminlayout/js/settings.js"></script>
+    <script src="~/adminlayout/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="~/adminlayout/js/dashboard.js"></script>
+    <script src="~/adminlayout/js/Chart.roundedBarCharts.js"></script>
+    <!-- End custom js for this page-->
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+

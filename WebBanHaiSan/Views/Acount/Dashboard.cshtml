@@ -1,0 +1,138 @@
+﻿@model WebBanHaiSan.Models.Customer
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Order> dsdh = ViewBag.DSDH;
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+
+    .larger-text {
+        font-size: 130%;
+    }
+</style>
+<div class="shop-box-inner">
+    <div class="container">
+        <div class="row">
+            <!-- Right content section -->
+            <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                <div class="right-product-box">
+                    <!-- Product item filter -->
+                    <div class="product-item-filter row">
+                        <div class="col-12 text-center">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#grid-view" data-toggle="tab">
+                                        <i class="fa fa-th"></i> Thông Tin Người Dùng
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#list-view" data-toggle="tab">
+                                        <i class="fa fa-list-ul"></i> Danh Sách Đơn Hàng
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Product category box -->
+                    <div class="product-categorie-box">
+                        <div class="tab-content">
+                            <!-- Grid view tab -->
+                            <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                <div class="list-view-box">
+                                    <div class="title-all text-center">
+                                        <h1>Thông Tin Người Dùng</h1>
+                                    </div>
+                                    <div class="row">
+                                        <!-- User avatar -->
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                            <div class="products-single fix">
+                                                <div class="box-img-hover">
+                                                    <img src="~/images/customers/@Model.Avatar" class="img-fluid" alt="Image">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- User information -->
+                                        <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
+                                            <div class="why-text full-width">
+                                                <div class="row">
+                                                    <div class="col"><label class="mb-0">Họ Và Tên:</label></div>
+                                                    <div class="col"><h3>@Model.FullName</h3></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col"><label class="mb-0">Ngày Sinh:</label></div>
+                                                    <div class="col"><h3>@Model.Birthday.Value.ToShortDateString()</h3></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col"><label class="mb-0">Giới Tính:</label></div>
+                                                    <div class="col">
+                                                        <h3>@(Model.Gender ? "Nam" : "Nữ")</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col"><label class="mb-0">Địa Chỉ:</label></div>
+                                                    <div class="col"><h3>@Model.Address</h3></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col"><label class="mb-0">Địa Chỉ Email:</label></div>
+                                                    <div class="col"><h3>@Model.Email</h3></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col"><label class="mb-0">Số Điện Thoại:</label></div>
+                                                    <div class="col"><h3>@Model.Phone</h3></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- List view tab -->
+                            <div role="tabpanel" class="tab-pane fade" id="list-view">
+                                @await Html.PartialAsync("DSDHPartialView", dsdh)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar left -->
+            <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                <div class="product-categori">
+                    <div class="filter-sidebar-left">
+                        <div class="title-left">
+                            <h3>Thông Tin Khách Hàng</h3>
+                        </div>
+                        <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                            <a asp-controller="Acount" asp-action="Edit" asp-route-id="@Model?.CustomerId" class="list-group-item list-group-item-action larger-text">
+                                <i class="fa fa-pencil-alt"></i> Sửa Thông Tin
+                            </a>
+                            <a asp-controller="Acount" asp-action="ChangePassword" asp-route-id="@Model?.CustomerId" class="list-group-item list-group-item-action larger-text">
+                                <i class="fa fa-lock"></i> Đổi Mật Khẩu
+                            </a>
+                            <a href="logout.html" class="list-group-item list-group-item-action larger-text">
+                                <i class="fa fa-sign-out-alt"></i> Đăng Xuất
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+@*            <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                <div class="product-categori">
+                    <div class="filter-sidebar-left">
+                        <div class="title-left">
+                            <h3>Thông Tin Khách Hàng</h3>
+                        </div>
+                        <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                            <a asp-controller="Acount" asp-action="Edit" asp-route-id="@Model?.CustomerId" class="list-group-item list-group-item-action"> Sửa Thông Tin </a>
+                            <a asp-controller="Acount" asp-action="ChangePassword" asp-route-id="@Model?.CustomerId" class="list-group-item list-group-item-action"> Đổi Mật Khẩu </a>
+                            <a href="logout.html" class="list-group-item list-group-item-action"> Đăng Xuất </a>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>

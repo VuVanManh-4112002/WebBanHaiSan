@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebBanHaiSan.Models.Role>
+
+@{
+    ViewData["Title"] = "Quản Lý Quyền Truy Cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <a class="btn btn-primary btn-icon-text" asp-controller="Role" asp-action="Create"><i class="ti-upload btn-icon-prepend"></i> Thêm Quyền Truy Cập</a>
+</div>
+<div class="table-1">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Mô Tả</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach(var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.RoleId</th>
+                        <td>@item.Rolename</td>
+                        <td>@item.Decription</td>
+                        <td>
+                            <a class="btn btn-inverse-primary btn-fw" asp-area="Admin" asp-controller="Role" asp-action="Details" asp-route-id="@item.RoleId">Xem</a>
+                            <a class="btn btn-inverse-warning btn-fw" asp-area="Admin" asp-controller="Role" asp-action="Edit" asp-route-id="@item.RoleId">Sửa</a>
+                            <a class="btn btn-inverse-info btn-fw" asp-area="Admin" asp-controller="Role" asp-action="Delete" asp-route-id="@item.RoleId">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

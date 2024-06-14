@@ -1,0 +1,177 @@
+﻿@model WebBanHaiSan.Models.Store
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> SanPham = ViewBag.DSSP;
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+
+    .center-container {
+        margin: 0 auto;
+        max-width: 1000px;
+    }
+</style>
+<div class="all-title-box" style=" background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Cửa Hàng</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="ProductHome" asp-action="Index">Shop</a></li>
+                    <li class="breadcrumb-item active">@Model.StoreName</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 20px; margin-bottom: 20px">
+    <div class="list-view-box center-container border p-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center">
+                    <h1>Thông Tin Cửa Hàng</h1>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="mb-0">Tên Cửa Hàng:</label>
+                    <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.StoreName</h4>
+                </div>
+                <div class="form-group">
+                    <label class="mb-0">Địa Chỉ Email:</label>
+                    <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.Email</h4>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="mb-0">Số Điện Thoại:</label>
+                    <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.Phone</h4>
+                </div>
+                <div class="form-group">
+                    <label class="mb-0">Địa Chỉ:</label>
+                    <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.Adress</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="shop-box-inner border p-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <h1>Danh Sách Sản Phẩm Thuộc Cửa Hàng</h1>
+                </div>
+                <div class="row">
+                    @if (SanPham != null && SanPham.Count() > 0)
+                    {
+                        @foreach (var item in SanPham)
+                        {
+                            string url = $"";
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                <div class="products-single fix">
+                                    <div class="box-img-hover">
+                                        <a href="@url">
+                                            <img src="~/images/products/@item.Thumb" class="img-fluid" alt="@item.Productname" style="height:200px; width:600px">
+                                        </a>
+                                    </div>
+                                    <div class="why-text">
+                                        <a asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.ProductId">
+                                            <h4>@item.Productname</h4>
+                                        </a>
+                                        <h3 style="margin-bottom: 10px">@item.Price VNĐ</h3>
+                                        <p><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn hvr-hover" style="color:white">Thêm Vào Giỏ Hàng</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="list-view-box center-container">
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8" style="margin-top: 20px; margin-bottom: 20px">
+            <div class="why-text full-width">
+                <div class="row">
+                    <div class="form-group col-md-12 text-center">
+                        <h1>Thông Tin Cửa Hàng</h1>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="mb-0">Tên Cửa Hàng:</label>
+                        <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.StoreName</h4>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="mb-0">Địa Chỉ Email:</label>
+                        <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.Email</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="mb-0">Số Điện Thoại:</label>
+                        <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.Phone</h4>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="mb-0">Địa Chỉ:</label>
+                        <h4 asp-controller="Store" asp-action="Details" asp-route-id="@Model.StoreId">@Model.Adress</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop-box-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                <div class="right-product-box">
+                    <div class="form-group col-md-12 text-center">
+                        <h1>Danh Sách Sản Phẩm Thuộc Cửa Hàng</h1>
+                    </div>
+                    <div class="product-categorie-box">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                <div class="row">
+                                    @if (SanPham != null && SanPham.Count() > 0)
+                                    {
+                                        @foreach (var item in SanPham)
+                                        {
+                                            string url = $"";
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                                <div class="products-single fix">
+                                                    <div class="box-img-hover">
+                                                        @* <div class="type-lb">
+                                                <p class="sale">Sale</p>
+                                                </div>
+                                                        <a href="@url">
+                                                            <img src="~/images/products/@item.Thumb" class="img-fluid" alt="@item.Productname" style="height:200px; width:600px">
+                                                        </a>
+                                                    </div>
+                                                    <div class="why-text">
+                                                        <a class="centered" asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.ProductId">
+                                                            <h4>@item.Productname</h4>
+                                                        </a>
+                                                        <h3 class="centered" style="margin-bottom:10px">@item.Price VNĐ</h3>
+                                                        <p class="centered"><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId" class="btn hvr-hover" style="color:white">Thêm Vào Giỏ Hàng</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@

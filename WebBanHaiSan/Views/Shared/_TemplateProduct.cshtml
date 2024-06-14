@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@RenderSection("BreaCum", required:false)
+<div class="all-title-box" style=" background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Mua Sắm</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="ProductHome" asp-action="Index">Shop</a></li>
+                    <li class="breadcrumb-item active">Mua Sắm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop-box-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                <div class="right-product-box">
+                    <div class="product-item-filter row">
+                        @*<div class="col-12 col-sm-8 text-center text-sm-left">
+                            <div class="toolbar-sorter-right">
+                                <span>Lọc</span>
+                                <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
+                                    <option data-display="Select">Nothing</option>
+                                    <option value="1">Popularity</option>
+                                    <option value="2">Giá Cao → Giá Thấp</option>
+                                    <option value="3">Giá Thấp → Giá Cao</option>
+                                    <option value="4">Best Seller</option>
+                                </select>
+                            </div>
+                        </div>*@
+                        <div class="col-12 col-sm-12 text-center text-sm-left">
+                            <ul class="nav nav-tabs ml-auto text-center" style="float:left">
+                                <li>
+                                    <a class="nav-link active" href="#grid-view" data-toggle="tab">Danh Sách Sản Phẩm </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-categorie-box">
+                        <div class="tab-content">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                <div class="product-categori">
+                    <div class="search-product">
+                        <form asp-action="Search" asp-controller="ProductHome">
+                            <input class="form-control" placeholder="Search here..." type="search" name="query">
+                            <button type="submit"> <i class="fa fa-search"></i> </button>
+                        </form>
+                    </div>
+                    <div class="filter-sidebar-left">
+                        <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
+                            <div class="list-group-collapse sub-men">
+                                <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">
+                                    Danh Mục Sản Phẩm <small class="text-muted"></small>
+                                </a>
+                                <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
+                                    <div class="list-group">
+                                        @await Component.InvokeAsync("MenuDanhMuc")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-collapse sub-men">
+                                <a class="list-group-item list-group-item-action">
+                                    Cửa Hàng
+                                </a>
+                                <div class="list-group">
+                                    @await Component.InvokeAsync("Store")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+@*                    <div class="filter-price-left">
+                        <div class="title-left">
+                            <h3>Price</h3>
+                        </div>
+                        <div class="price-box-slider">
+                            <div id="slider-range"></div>
+                            <p>
+                                <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
+                                <button class="btn hvr-hover" type="submit">Filter</button>
+                            </p>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

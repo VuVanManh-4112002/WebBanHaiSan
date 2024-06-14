@@ -1,0 +1,104 @@
+﻿@model WebBanHaiSan.ViewModels.CheckoutVM
+@{
+    ViewData["Title"] = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<WebBanHaiSan.ViewModels.CartItem> Carts = ViewBag.GioHang;
+}
+
+<div class="cart-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="checkout-address">
+                    <div class="title-left">
+                        <h3>Thông Tin Đơn Hàng</h3>
+                    </div>
+                    <form class="needs-validation" asp-action="CheckOut" asp-controller="Cart">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="mb-0">Họ Và Tên</label>
+                                <input type="text" asp-for="FullName" class="form-control" placeholder="Họ Và Tên">
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="mb-0">Số Điện Thoại</label>
+                                <input type="tel" asp-for="Phone" class="form-control" placeholder="Số Điện Thoại">
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="mb-0">Email</label>
+                                <input type="email" asp-for="Email" class="form-control" placeholder="Nhập Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="mb-0">Địa Chỉ</label>
+                                <input type="text" asp-for="Address" class="form-control" placeholder="Nhập Địa Chỉ">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="mb-0">Ghi Chú</label>
+                                <input type="text" asp-for="Note" class="form-control" placeholder="Nhập ghi chú">
+                                <span asp-validation-for="Note" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <input type="submit" name="payment" class="btn btn-primary btn-block" value="Thanh Toán Trả Sau" />
+                        <input type="submit" name="payment" class="btn btn-primary btn-block" value="Thanh Toán Bằng VNPay" />
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="odr-box">
+                            <div class="title-left">
+                                <h3>Giỏ Hàng</h3>
+                            </div>
+                            <div class="rounded p-2 bg-light">
+                                @if (Carts.Count() > 0)
+                                {
+                                    @foreach (var item in Carts)
+                                    {
+                                        <div class="media mb-2 border-bottom">
+                                            <div class="media-body">
+                                                <a asp-controller="ProductHome" asp-action="Details" asp-route-id="@item.MaHh">@item.TenHh</a>
+                                                <div class="small text-muted">Giá: @item.PricePd VNĐ<span class="mx-2">|</span> Số lượng: @item.Soluong <span class="mx-2">|</span> Tổng Tiền: @item.Total</div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="order-box">
+                            <div class="title-left">
+                                <h3>Đơn Hàng Của Bạn</h3>
+                            </div>
+                            <div class="d-flex">
+                                <div class="font-weight-bold">Thanh Toán</div>
+                                <div class="ml-auto font-weight-bold">Tổng Tiền</div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Thành Tiền:</h4>
+                                <div class="ml-auto font-weight-bold">@Carts.Sum(p => p.Total).ToString("#,##0") VNĐ</div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Giảm Giá:</h4>
+                                <div class="ml-auto font-weight-bold">@Carts.Sum(p => p.TotalDiscount).ToString("#,##0") VNĐ </div>
+                            </div>
+                            <hr class="my-1">
+                            <hr>
+                            <div class="d-flex gr-total">
+                                <h5>Tổng Tiền:</h5>
+                                <div class="ml-auto h5"> @Carts.Sum(p => p.TotalPD).ToString("#,##0") VNĐ</div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

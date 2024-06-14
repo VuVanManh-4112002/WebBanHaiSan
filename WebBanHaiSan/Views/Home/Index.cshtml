@@ -1,0 +1,279 @@
+﻿@model WebBanHaiSan.ViewModels.HomeViewVM
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> AllProduct = ViewBag.AllProducts;
+}
+<style>
+    .blog-box {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .blog-img img {
+        width: 100%;
+        height: auto;
+    }
+
+    .blog-content {
+        flex-grow: 1;
+    }
+
+    .blog-box .text-center {
+        margin-top: auto;
+    }
+
+    .shop-cat-box {
+        position: relative;
+        text-align: center;
+    }
+
+        .shop-cat-box img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+    .category-description {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    #slides-shop.cover-slides {
+        max-width: 1000px;
+        /* Set maximum width */
+        margin: 0 auto; /* Center the slider horizontally */
+        height: 350px;
+    }
+
+    .slides-container {
+        width: 100%; /* Ensure slides fill the container width */
+        max-width: 100%; /* Ensure slides don't exceed the container width */
+    }
+
+    .slides-navigation {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 999;
+        width: 100%;
+        max-width: 1200px; /* Match the width of the slider */
+    }
+
+        .slides-navigation .next,
+        .slides-navigation .prev {
+            font-size: 24px;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .slides-navigation .next {
+            right: 15px;
+        }
+
+        .slides-navigation .prev {
+            left: 15px;
+        }
+</style>
+<!-- Start Slider -->
+<div id="slides-shop" class="cover-slides">
+    <ul class="slides-container">
+        <li class="text-center">
+            <img src="~/images/banner/Banner01.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br> ManhTu Store</strong></h1>
+                        <p class="m-b-40">Chào Mừng bạn đến với chúng tôi</p>
+                        <p><a class="btn hvr-hover" asp-controller="ProductHome" asp-action="Index">Mua Sắm Ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="~/images/banner/Banner02.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br> ManhTu Store</strong></h1>
+                        <p class="m-b-40">Cửa Hàng Bán Cá</p>
+                        <p><a class="btn hvr-hover" asp-controller="ProductHome" asp-action="Index">Mua Sắm Ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="~/images/banner/Banner03.jpg" alt="">
+            @*<div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20">Chuyên Cung Cấp Các Loại Hải Sản Tươi Sống Và Đóng Gói</h1>
+                        <p><a class="btn hvr-hover" asp-controller="ProductHome" asp-action="Index">Mua Sắm Ngay</a></p>
+                    </div>
+                </div>
+            </div>*@
+        </li>
+        <!-- Other slides go here -->
+    </ul>
+    <div class="slides-navigation">
+        <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    </div>
+</div>
+@*<div id="slides-shop" class="cover-slides">
+    <ul class="slides-container">
+        <li class="text-center">
+            <img src="~/images/banner/Banner01.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br> ManhTu Store</strong></h1>
+                        <p class="m-b-40">Chào Mừng bạn đến với chúng tôi</p>
+                        <p><a class="btn hvr-hover" asp-controller="ProductHome" asp-action="Index">Mua Sắm Ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="~/images/banner/Banner02.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br> ManhTu Store</strong></h1>
+                        <p class="m-b-40">Cửa Hàng Bán Cá</p>
+                        <p><a class="btn hvr-hover" asp-controller="ProductHome" asp-action="Index">Mua Sắm Ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="~/images/banner/Banner03.jpg" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20">Chuyên Cung Cấp Các Loại Hải Sản Tươi Sống Và Đóng Gói</h1>
+                        <p><a class="btn hvr-hover" asp-controller="ProductHome" asp-action="Index">Mua Sắm Ngay</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="slides-navigation">
+        <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    </div>
+</div>*@
+<!-- End Slider -->
+<!-- Start Categories  -->
+<div class="categories-shop">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h2>Danh Mục Sản Phẩm</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Product)
+            {
+                <div class="col-lg-2 col-md-3 col-sm-5 col-xs-5" style="margin-right: 30px;">
+                    <div class="shop-cat-box" style="height:150px; width:150px;left: 26px">
+                        <a href="@Url.Action("List", "ProductHome", new { CatID = item.category.CartId })">
+                            <img class="img-fluid" src="~/images/categorys/@item.category.Cover" alt="@item.category.Title" style="height:100px; width:100px" />
+                        </a>
+                        <div class="category-description">
+                            @item.category.CartName
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*<div class="categories-shop">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.Product)
+            {
+                <div class="col-lg-2 col-md-3 col-sm-5 col-xs-5" style="margin-right: 30px;">
+                    <div class="shop-cat-box" style="height:200px; width:200px;left: 26px">
+                        <img class="img-fluid" src="~/images/categorys/@item.category.Cover" alt="@item.category.Title" />
+                        <a class="btn hvr-hover" asp-controller="ProductHome" asp-action="List" asp-route-CatID="@item.category.CartId">@item.category.CartName</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>*@
+<!-- End Categories -->
+<!-- Start Products  -->
+<div class="products-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Cá và Đồ Đóng Gói</h1>
+                    <p>Các sản phẩm thân thiện với môi trường</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="special-menu text-center">
+                    <div class="button-group filter-button-group">
+                        <button class="active" data-filter="*">All</button>
+                        <button data-filter=".top-featured">Giảm Giá</button>
+                        <button data-filter=".best-seller">Bán Chạy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row special-list">
+            @await Html.PartialAsync("ListProductPartialView", AllProduct)
+        </div>
+    </div>
+</div>
+<!-- End Products  -->
+<!-- Start Blog  -->
+<div class="latest-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Tin Tức</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Posts)
+            {
+                string url = $"/tintuc/{@item.PostId}.html";
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                    <div class="blog-box" style="height: 100%; display: flex; flex-direction: column;">
+                        <div class="blog-img" asp-action="Details" asp-controller="Post" asp-route-id="@item.PostId">
+                            <img class="img-fluid" src="~/images/posts/@item.Image" alt="" style="width: 100%; height: 200px;" />
+                        </div>
+                        <div class="blog-content" style="flex-grow: 1;">
+                            <h4><b>Ngày Tạo: @item.Creatdate.Value.ToShortDateString()</b></h4>
+                            <div class="title-blog">
+                                <h3>@item.Title</h3>
+                                <p>@item.Contents</p>
+                            </div>
+                        </div>
+                        <div class="text-center" style="margin-top: auto;">
+                            <a asp-action="Details" asp-controller="Post" asp-route-id="@item.PostId" class="btn hvr-hover" style="color:white"><i class="fas fa-eye"></i> Xem Thêm</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<WebBanHaiSan.Models.Post>
+
+@{
+    ViewData["Title"] = "Tin Tức -" + ViewBag.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div class="all-title-box" style=" background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Tin Tức</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Shop</a></li>
+                    <li class="breadcrumb-item active">Tin Tức</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="latest-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-all text-center">
+                    <h1>Tin Tức</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model !=null && Model.Count() > 0)
+            {
+                @foreach(var item in Model)
+                {
+                    string url = $"/tintuc/{@item.PostId}.html";
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                    <div class="blog-box" style="height: 100%; display: flex; flex-direction: column;">
+                        <div class="blog-img" asp-action="Details" asp-controller="Post" asp-route-id="@item.PostId">
+                            <img class="img-fluid" src="~/images/posts/@item.Image" alt="" style="width: 100%; height: 200px;" />
+                        </div>
+                        <div class="blog-content" style="flex-grow: 1;">
+                            <h4><b>Ngày Tạo: @item.Creatdate.Value.ToShortDateString()</b></h4>
+                            <div class="title-blog">
+                                <h3>@item.Title</h3>
+                                <p>@item.Contents</p>
+                            </div>
+                        </div>
+                        <div class="text-center" style="margin-top: auto;">
+                            <a asp-action="Details" asp-controller="Post" asp-route-id="@item.PostId" class="btn hvr-hover" style="color:white"><i class="fas fa-eye"></i> Xem Thêm</a>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+        </div>
+    </div>
+    <div aria-label="Page navigation example" style="justify-content:center; margin-top: 30px" class="centered">
+        <ul class="pagination">
+            <pager class="pager-container" options="@PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext" list="@Model" asp-controller="Post" asp-action="Index" />
+        </ul>
+    </div>
+</div>
+

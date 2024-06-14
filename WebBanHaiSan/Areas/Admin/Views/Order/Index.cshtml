@@ -1,0 +1,129 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<WebBanHaiSan.Models.Order>
+@{
+    ViewData["Title"] = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<TransactStatusId> tt = ViewBag.Status;
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+
+    p {
+        font-size: 130%;
+    }
+</style>
+<div class="container mt-5">
+    <h4 class="text-center">Danh Sách Đơn Hàng</h4>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Mã Đơn Hàng</th>
+                <th>Người Đặt Hàng</th>
+                <th>Ngày Đặt Hàng</th>
+                <th>Ngày Giao Hàng</th>
+                <th>Trạng Thái</th>
+                <th>Tổng Tiền</th>
+                <th>Ghi Chú</th>
+                <th>Hoạt Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.Customer.FullName</td>
+                    <td>@item.OrderDate?.ToString("yyyy-MM-dd")</td>
+                    <td>@item.ShipDate?.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        @if (Convert.ToInt32(item.Status.StatusId) <= -1)
+                        {
+                            <label class="badge badge-danger">@item.Status.Status</label>
+                        }
+                        else if (Convert.ToInt32(item.Status.StatusId) > -1 && Convert.ToInt32(item.Status.StatusId) <= 2)
+                        {
+                            <label class="badge badge-opacity-warning">@item.Status.Status</label>
+                        }
+                        else
+                        {
+                            <label class="badge badge-success">@item.Status.Status</label>
+                        }
+                    </td>
+                    <td>@item.TotalMoney</td>
+                    <td>@item.Note</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#orderModal-@item.OrderId">Chi Tiết</button>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="orderModal-@item.OrderId" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel-@item.OrderId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form method="post" asp-action="Edit">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="orderModalLabel-@item.OrderId">Thông Tin Đơn Hàng</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="id" value="@item.OrderId" />
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label for="fullName">Họ Tên:</label>
+                                            <p id="fullName">@item.Customer.FullName</p>
+                                        </div>
+                                        <div class="col">
+                                            <label for="phone">Số Điện Thoại:</label>
+                                            <p id="phone">@item.Phone</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label for="orderDate">Thời Gian Đặt Hàng:</label>
+                                            <p id="orderDate">@item.OrderDate?.ToString("yyyy-MM-dd")</p>
+                                        </div>
+                                        <div class="col">
+                                            <label for="shipDate">Thời Gian Giao Hàng:</label>
+                                            <input type="date" name="ShipDate" class="form-control" id="shipDate" value="@item.OrderDate?.AddDays(3).ToString("yyyy-MM-dd")" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="orderStatus">Order Status:</label>
+                                        <select name="Status" class="form-control" id="orderStatus">
+                                            @foreach (var status in tt)
+                                            {
+                                                <option value="@status.StatusId">@status.Status</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="totalMoney">Tổng Tiền:</label>
+                                        <p id="totalMoney">@item.TotalMoney</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Thay Đổi</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </tbody>
+    </table>
+</div>
+<div aria-label="Page navigation example" class="centered">
+    <ul class="pagination">
+        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="Order" asp-action="Index" />
+    </ul>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

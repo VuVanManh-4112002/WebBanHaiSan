@@ -1,0 +1,5 @@
+﻿@model IEnumerable<WebBanHaiSan.ViewModels.StoreVM>
+@foreach (var item in Model)
+{
+    <li><a asp-controller="Store" asp-action="Details" asp-route-id="@item.StoreID">@item.StoreName</a></li>
+}

@@ -1,0 +1,100 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<WebBanHaiSan.Models.Store>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div class="all-title-box" style=" background: url(/images/banner/Banner02.jpg); padding-bottom:5px; padding-top:5px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Cửa Hàng</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Cửa Hàng</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="list-view-box" style="margin-top: 20px">
+    <div class="row">
+        @if (Model != null && Model.Count() > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Thông Tin Cửa Hàng</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-0">Tên Cửa Hàng:</label>
+                                        <h6 class="card-text">@item.StoreName</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-0">Số Điện Thoại:</label>
+                                        <h6 class="card-text">@item.Phone</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="mb-0">Địa Chỉ Email:</label>
+                                        <h6 class="card-text">@item.Email</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-0">Địa Chỉ:</label>
+                                        <h6 class="card-text">@item.Adress</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="@Url.Action("Details", "Store", new { id = item.StoreId })" class="btn btn-primary">Xem Chi Tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+@* <div class="list-view-box">
+        <div class="row">
+            @if (Model != null && Model.Count() > 0)
+            {
+                @foreach(var item in Model)
+                {
+                <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8" style="margin-top: 20px; margin-bottom: 20px">
+                        <div class="why-text full-width">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="mb-0">Tên Cửa Hàng:</label>
+                                    <h4 asp-controller ="Store" asp-action="Details" asp-route-id="@item.StoreId">@item.StoreName</h4>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="mb-0">Địa Chỉ Email:</label>
+                                    <h4 asp-controller="Store" asp-action="Details" asp-route-id="@item.StoreId">@item.Email</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="mb-0">Số Điện Thoại:</label>
+                                    <h4 asp-controller="Store" asp-action="Details" asp-route-id="@item.StoreId">@item.Phone</h4>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="mb-0">Địa Chỉ:</label>
+                                    <h4 asp-controller="Store" asp-action="Details" asp-route-id="@item.StoreId">@item.Adress</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>*@
+
